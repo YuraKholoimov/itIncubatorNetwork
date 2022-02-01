@@ -1,26 +1,68 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import {Button, Container, Form, FormControl, Nav, Navbar, NavDropdown} from "react-bootstrap";
+import style from './style/style.module.css';
+
+
+const HeaderApp = () => {
+    return <Navbar bg="light" expand="lg">
+        <Container >
+            <Navbar.Brand href="#home">IT-INCUBATOR NETWORK</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+            <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="me-auto">
+                    <Nav.Link href="#friends">Друзья</Nav.Link>
+                    <Nav.Link href="#messages">Мои сообщения</Nav.Link>
+                    <NavDropdown title="Список дел" id="basic-nav-dropdown">
+                        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                        <NavDropdown.Divider/>
+                        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                    </NavDropdown>
+                </Nav>
+
+
+        <Form className="d-flex">
+            <FormControl
+                type="search"
+                placeholder="Search"
+                className="me-2"
+                aria-label="Search"
+            />
+        </Form>
+
+        <Nav.Link href="#login" >
+            <Button variant="outline-success" >Войти</Button>
+        </Nav.Link>
+        <Nav.Link href="#registration" >
+            <Button className="" variant="outline-success">Зарегистрироваться</Button>
+        </Nav.Link>
+
+
+            </Navbar.Collapse>
+        </Container>
+    </Navbar>
 }
 
-export default App;
+const BodyApp =() => {
+    return <section>
+        <div className={style.bodyContent}>
+
+
+        </div>
+    </section>
+}
+
+const FooterApp = () => {
+    return
+}
+
+
+export default function App() {
+    return <>
+        <HeaderApp />
+        <BodyApp />
+    </>
+}
+
