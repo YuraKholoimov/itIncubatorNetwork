@@ -1,2 +1,9 @@
-import React from 'react';
-import styles from './styles.module.css'
+declare module '*.module.css'
+// declare module '@types/react-bootstrap'
+// {
+//     interface IClassNames {
+//         [className: string]: string
+//     }
+//     const classNames: IClassNames;
+//     export = classNames;
+// }
