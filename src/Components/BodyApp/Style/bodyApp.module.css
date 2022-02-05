@@ -40,8 +40,11 @@
 .profileCard {
     position: absolute;
     left: -550px;
-    bottom: -500px;
+    top: -200px;
     /*top: 200px;*/
     z-index: 100;
 
+}
+.isActive {
+    color: gold;
 }

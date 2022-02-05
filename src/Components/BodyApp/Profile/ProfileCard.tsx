@@ -1,13 +1,15 @@
 import {Card, ListGroup, ListGroupItem, Nav} from "react-bootstrap";
 import style from "../Style/bodyApp.module.css";
 import {ProfileNavbar} from "../../Navbar/ProfileNavbar/ProfileNavbar";
+import React from "react";
 
 export const ProfileCard = () => {
     return (
         <div className={style.wrapper}>
             <div className={style.profileCard}>
                 <Card style={{width: '18rem'}}>
-                    <Card.Img variant="top" src="https://avatarfiles.alphacoders.com/160/thumb-160787.jpg"/>
+                    <Card.Img variant="top" src="https://avatarfiles.alphacoders.com/160/thumb-160787.jpg" />
+                    <Nav.Link href="/edit">Edit</Nav.Link>
                     <Card.Body>
                         <Card.Title>NAME SURNAME</Card.Title>
                         <Card.Text>

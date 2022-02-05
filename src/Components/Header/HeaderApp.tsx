@@ -19,8 +19,8 @@ export const HeaderApp: React.FC<HeaderAppTyp> = (props) => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="#channel">Channel</Nav.Link>
-                        <Nav.Link href="#fevarite">Favorite</Nav.Link>
+                        <Nav.Link href="/channel">Channel</Nav.Link>
+                        <Nav.Link href="/fevarite">Favorite</Nav.Link>
                         <Nav.Link href="#itnews">ITNews</Nav.Link>
                         <NavDropdown title="Dally" id="basic-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
@@ -30,11 +30,10 @@ export const HeaderApp: React.FC<HeaderAppTyp> = (props) => {
                             <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
-
+{/*--------Форма поиска ------*/}
                     <SearchForm/>
-
+{/*--------Кнопки Логин и Регистрация ------*/}
                     <BtnLoginRegistration/>
-
                 </Navbar.Collapse>
             </Container>
         </Navbar>
