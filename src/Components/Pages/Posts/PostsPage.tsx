@@ -1,5 +1,7 @@
 import {Post} from "./Post/Post";
-import {TextareaApp} from "../../../UI/TextareaApp";
+import {TextareaApp} from "../../UI/TextareaApp";
+
+
 
 export const PostsPage = () => {
     return (

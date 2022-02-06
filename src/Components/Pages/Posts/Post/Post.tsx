@@ -1,10 +1,18 @@
 import {Card, Figure} from "react-bootstrap";
 
-// import style from '../Style/postsApp.module.css'
+const posts = [
+    {
+        id: 1,
+        img: '',
+        title:'',
+        postTaxt: ''
+    }
+]
+
 
 export const Post = () => {
     return (
-        <div className='d-flex flex-column m-1 ' >
+        <div className='d-flex flex-column m-1 '>
             <Card>
                 <Card.Header>Title</Card.Header>
                 <Card.Body className='d-flex'>

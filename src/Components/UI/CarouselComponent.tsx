@@ -1,5 +1,5 @@
 import {Carousel} from "react-bootstrap";
-import style from "../BodyApp/Style/bodyApp.module.css";
+import style from "../BodyApp/bodyApp.module.css";
 
 export const CarouselComponent = () => {
     return (

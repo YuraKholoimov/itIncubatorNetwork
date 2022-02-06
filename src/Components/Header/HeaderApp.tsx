@@ -1,5 +1,5 @@
 import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
-import style from './Style/header.module.css'
+import style from './header.module.css'
 import {SearchForm} from "../UI/SearchForm";
 import React from "react";
 import {BtnLoginRegistration} from "../UI/BtnLoginRegistration";
@@ -22,7 +22,7 @@ export const HeaderApp: React.FC<HeaderAppTyp> = (props) => {
                         <Nav.Link href="/channel">Channel</Nav.Link>
                         <Nav.Link href="/fevarite">Favorite</Nav.Link>
                         <Nav.Link href="#itnews">ITNews</Nav.Link>
-                        <NavDropdown title="Dally" id="basic-nav-dropdown">
+                        <NavDropdown title="Servises" id="basic-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>

@@ -1,5 +1,5 @@
 import {Container} from "react-bootstrap";
-import style from "./Style/footer.module.css";
+import style from "./footer.module.css";
 
 export const FooterApp = () => {
     return (

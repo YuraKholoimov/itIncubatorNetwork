@@ -1,7 +1,8 @@
-import {Card, ListGroup, ListGroupItem, Nav} from "react-bootstrap";
-import style from "../Style/bodyApp.module.css";
+import {Button, Card, ListGroup, ListGroupItem, Nav} from "react-bootstrap";
+import style from "../bodyApp.module.css";
 import {ProfileNavbar} from "../../Navbar/ProfileNavbar/ProfileNavbar";
 import React from "react";
+import {NavLink} from "react-router-dom";
 
 export const ProfileCard = () => {
     return (
@@ -9,7 +10,11 @@ export const ProfileCard = () => {
             <div className={style.profileCard}>
                 <Card style={{width: '18rem'}}>
                     <Card.Img variant="top" src="https://avatarfiles.alphacoders.com/160/thumb-160787.jpg" />
-                    <Nav.Link href="/edit">Edit</Nav.Link>
+                    {/*<Nav.Link href="/edit">Edit</Nav.Link>*/}
+
+                    <Button variant="light" size="sm" className='col-sm-10 mx-4 my-2'>
+                        <NavLink to={'/edit'} className='text-decoration-none text-body'>Edit profile</NavLink>
+                    </Button>
                     <Card.Body>
                         <Card.Title>NAME SURNAME</Card.Title>
                         <Card.Text>

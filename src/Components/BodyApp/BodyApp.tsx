@@ -1,11 +1,11 @@
 import {BodyNavbar} from "../Navbar/BodyNavbar/BodyNavbar";
 import {ProfileCard} from "./Profile/ProfileCard";
 import {CarouselComponent} from "../UI/CarouselComponent";
-import {PostsPage} from "./Pages/Posts/PostsPage";
+import {PostsPage} from "../Pages/Posts/PostsPage";
 
-import style from "./Style/bodyApp.module.css";
-import {MessagesPage} from "./Pages/Messages/MessagesPage";
-import {FriendsPage} from "./Pages/Friends/FriendsPage";
+import style from "./bodyApp.module.css";
+import {DialogsPage} from "../Pages/Messages/DialogsPage";
+import {FriendsPage} from "../Pages/Friends/FriendsPage";
 import {Route, Routes} from "react-router-dom";
 
 export const BodyApp = () => {
@@ -16,7 +16,7 @@ export const BodyApp = () => {
             <ProfileCard/>
             <Routes>
                 <Route path={"/"} element={<PostsPage/>}/>
-                <Route path={"/messages"} element={<MessagesPage/>}/>
+                <Route path={"/dialogs"} element={<DialogsPage/>}/>
                 <Route path={"/friends"} element={<FriendsPage/>}/>
                 <Route path={"/posts"} element={<PostsPage/>}/>
             </Routes>
