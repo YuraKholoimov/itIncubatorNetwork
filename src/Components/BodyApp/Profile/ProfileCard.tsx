@@ -8,7 +8,7 @@ export const ProfileCard = () => {
     return (
         <div className={style.wrapper}>
             <div className={style.profileCard}>
-                <Card style={{width: '18rem'}}>
+                <Card  className="shadow p-1 mb-5 rounded ">
                     <Card.Img variant="top" src="https://avatarfiles.alphacoders.com/160/thumb-160787.jpg" />
                     {/*<Nav.Link href="/edit">Edit</Nav.Link>*/}
 

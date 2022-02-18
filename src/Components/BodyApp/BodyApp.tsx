@@ -1,25 +1,26 @@
+import React from "react";
 import {BodyNavbar} from "../Navbar/BodyNavbar/BodyNavbar";
 import {ProfileCard} from "./Profile/ProfileCard";
 import {CarouselComponent} from "../UI/CarouselComponent";
-import {PostsPage} from "../Pages/Posts/PostsPage";
+
+import {ActionsTypes, AppStateType} from "../Redux/State";
+
+import {RoutesApp} from "../Routes/RoutesApp";
 
 import style from "./bodyApp.module.css";
-import {DialogsPage} from "../Pages/Messages/DialogsPage";
-import {FriendsPage} from "../Pages/Friends/FriendsPage";
-import {Route, Routes} from "react-router-dom";
 
-export const BodyApp = () => {
+type BodyAppType = {
+    state: AppStateType
+    dispatch: (action: ActionsTypes) => void
+}
+
+export const BodyApp: React.FC<BodyAppType> = (props) => {
     return (
         <div className={style.bodyContent}>
             <CarouselComponent/>
             <BodyNavbar/>
             <ProfileCard/>
-            <Routes>
-                <Route path={"/"} element={<PostsPage/>}/>
-                <Route path={"/dialogs"} element={<DialogsPage/>}/>
-                <Route path={"/friends"} element={<FriendsPage/>}/>
-                <Route path={"/posts"} element={<PostsPage/>}/>
-            </Routes>
+            <RoutesApp state={props.state} dispatch={props.dispatch}/>
         </div>
     )
 }

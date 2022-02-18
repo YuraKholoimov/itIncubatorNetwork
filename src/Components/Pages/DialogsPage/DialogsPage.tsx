@@ -1,5 +1,7 @@
 import {ListGroup} from "react-bootstrap";
-import {Dialog} from "./Message/Dialog";
+import {Dialog} from "./Dialog";
+import {ActionsTypes, AppStateType} from "../../Redux/State";
+import React from "react";
 
 const messageData = [
     {
@@ -26,16 +28,22 @@ const messageData = [
 
 ]
 
-export const DialogsPage = () => {
+type DialogsPageType = {
+    state: AppStateType
+    dispatch: (value:ActionsTypes)=>void
+}
+
+export const DialogsPage:React.FC<DialogsPageType> = (props) => {
     return (
         <>
             <ListGroup>
-                {messageData.map((elem, i) => {
+                {props.state.dialogsPage.dialogs.map((elem, i) => {
                     return <Dialog
-                        key={i}
+                        key={elem.id}
+                        id={elem.id}
                         message={elem.message}
-                        userName={elem.userName}
-                        url={elem.url}
+                        name={elem.name}
+                        avatar={elem.avatar}
                     />
                 })}
             </ListGroup>

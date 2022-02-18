@@ -8,6 +8,7 @@
     min-height: 130vh;
     border: 1px #acacac solid;
     overflow: hidden;
+    box-shadow: 1px 0px 0px 0px black;
 }
 
 .blocImg {
@@ -38,10 +39,10 @@
 }
 
 .profileCard {
+    width: 290px;
     position: absolute;
     right: 270px;
     top: -200px;
-    /*top: 200px;*/
     z-index: 100;
 
 }
