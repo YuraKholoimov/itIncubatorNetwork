@@ -16,7 +16,6 @@ export type MessageType = {
     time: string
     avatar: string
 }
-
 export type ProfilePageType = {
     postTextNew: string
     posts: Array<PostType>
@@ -25,7 +24,6 @@ export type DialogPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
 }
-
 export type AppStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogPageType
@@ -44,23 +42,37 @@ export const state: AppStateType = {
     dialogsPage: {
         dialogs: [
             {
-                id: 1, name: 'Name', message: "Messages text",
+                id: 1,
+                name: 'User Name',
+                message: 'This is a wider card with supporting text below as a natural lead-in to additional content.' +
+                    ' This content is a little bit longer.',
                 avatar: 'https://store.playstation.com/store/api/chihiro/00_09_000/container/RU/ru/99/EP2402-CUSA05624_00-' +
                     'AV00000000000216/0/image?_version=00_09_000&platform=chihiro&bg_color=000000&opacity=100&w=720&h=720'
             },
             {
-                id: 2, name: 'Name', message: "Messages text",
+                id: 2, name: 'User Name', message: "Messages text",
                 avatar: 'https://store.playstation.com/store/api/chihiro/00_09_000/container/RU/ru/99/EP2402-CUSA05624_00-' +
                     'AV00000000000216/0/image?_version=00_09_000&platform=chihiro&bg_color=000000&opacity=100&w=720&h=720'
             },
             {
-                id: 3, name: 'Name', message: "Messages text",
+                id: 3,
+                name: 'User Name',
+                message: 'This is a wider card with supporting text below as a natural lead-in to additional content.' +
+                    ' This content is a little bit longer.',
                 avatar: 'https://store.playstation.com/store/api/chihiro/00_09_000/container/RU/ru/99/EP2402-CUSA05624_00-' +
                     'AV00000000000216/0/image?_version=00_09_000&platform=chihiro&bg_color=000000&opacity=100&w=720&h=720'
             },
             {
                 id: 4,
-                name: 'Name',
+                name: 'User Name',
+                message: 'This is a wider card with supporting text below as a natural lead-in to additional content.' +
+                    ' This content is a little bit longer.',
+                avatar: 'https://store.playstation.com/store/api/chihiro/00_09_000/container/RU/ru/99/EP2402-CUSA05624_00-' +
+                    'AV00000000000216/0/image?_version=00_09_000&platform=chihiro&bg_color=000000&opacity=100&w=720&h=720'
+            },
+            {
+                id: 5,
+                name: 'User Name',
                 message: 'This is a wider card with supporting text below as a natural lead-in to additional content.' +
                     ' This content is a little bit longer.',
                 avatar: 'https://store.playstation.com/store/api/chihiro/00_09_000/container/RU/ru/99/EP2402-CUSA05624_00-' +
@@ -113,6 +125,7 @@ export type ActionsTypes =
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof addNewDialogAC>
     | ReturnType<typeof updateNewMessageTextAC>
+    | ReturnType<typeof AddNewMessageAC>
 
 //---------------- ACTION CREATORS -------------------//
 export const AddPostAC = (text: string) => ({type: "ADD-POST", text} as const)
@@ -124,8 +137,9 @@ export const addNewDialogAC = (name: string, newMessage: string, avatar: string)
     newMessage,
     avatar
 } as const)
+export const AddNewMessageAC = (message: string) => ({type: "ADD-MESSAGE-TEXT", message} as const)
 
-//---------------- DISPATCH -------------------//
+//---------------------- DISPATCH -----------------------//
 export const dispatch = (action: ActionsTypes) => {
     if (action.type === "ADD-POST") {
         const newPost: PostType = {
@@ -151,8 +165,18 @@ export const dispatch = (action: ActionsTypes) => {
     } else if (action.type === "UPDATE-MESSAGE-TEXT") {
         state.profilePage.postTextNew = action.newText
         rerenderTree()
+    } else if (action.type === "ADD-MESSAGE-TEXT") {
+        const newMessage: MessageType = {...state.dialogsPage.messages[0], message: action.message,}
+        if (state.profilePage.postTextNew.trim()) {
+            state.dialogsPage.messages.push(newMessage)
+            state.profilePage.postTextNew = ""
+            rerenderTree()
+        } else {
+            return
+        }
     }
 }
-    export const subscriber = (observer: () => void) => {
-        rerenderTree = observer
-    }
+
+export const subscriber = (observer: () => void) => {
+    rerenderTree = observer
+}

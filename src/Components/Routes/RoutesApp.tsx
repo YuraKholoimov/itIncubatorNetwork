@@ -21,8 +21,13 @@ export const RoutesApp: React.FC<RoutesAppType> = (props) => {
                 <Route path={"/friends"} element={<FriendsPage/>}/>
                 <Route path={"/posts"} element={<PostsPage state={props.state} dispatch={props.dispatch}/>}/>
                 {props.state.dialogsPage.messages.map((el, index) => {
-                    return <Route path={`/message/${el.id}`}
-                                  element={<MessagesPage state={props.state} dispatch={props.dispatch} message={props.state.dialogsPage.messages[index]}  />}/>
+                    return <Route path={`/message/${el.id}`} element={
+                        <MessagesPage
+                            state={props.state}
+                            dispatch={props.dispatch}
+                            messages={props.state.dialogsPage.messages}
+                        />
+                    }/>
                 })}
 
             </Routes>

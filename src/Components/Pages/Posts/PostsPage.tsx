@@ -1,6 +1,6 @@
 import {Post} from "./Post/Post";
 import {TextareaApp} from "../../UI/TextareaApp";
-import {ActionsTypes, AppStateType, updateNewPostTextAC} from "../../Redux/State";
+import {ActionsTypes, AddPostAC, AppStateType, updateNewPostTextAC} from "../../Redux/State";
 import React from "react";
 import {Container} from "react-bootstrap";
 
@@ -24,7 +24,12 @@ export const PostsPage: React.FC<PostsPageType> = (props) => {
                         />
                     })}
 
-                    <TextareaApp state={props.state} dispatch={props.dispatch} actionCreator={updateNewPostTextAC}/>
+                    <TextareaApp
+                        state={props.state}
+                        dispatch={props.dispatch}
+                        updateAC={updateNewPostTextAC}
+                        addItemAC={AddPostAC}
+                    />
                 </div>
         </>
     )
