@@ -1,3 +1,6 @@
+import profileReducer from "./profile-reducer";
+import dialogReducer from "./dialog-reducer";
+
 export type PostType = {
     id: number
     post?: string
@@ -141,40 +144,44 @@ export const AddNewMessageAC = (message: string) => ({type: "ADD-MESSAGE-TEXT", 
 
 //---------------------- DISPATCH -----------------------//
 export const dispatch = (action: ActionsTypes) => {
-    if (action.type === "ADD-POST") {
-        const newPost: PostType = {
-            id: 5,
-            post: action.text,
-            likesCount: 11
-        }
-        state.profilePage.postTextNew = ""
-        state.profilePage.posts.push(newPost)
-        rerenderTree()
-    } else if (action.type === "UPDATE-POST-TEXT") {
-        state.profilePage.postTextNew = action.newText
-        rerenderTree()
-    } else if (action.type === "ADD-NEW-DIALOG") {
-        const newDialog: DialogType = {
-            id: 11,
-            name: action.name,
-            message: action.newMessage,
-            avatar: action.avatar
-        }
-        state.dialogsPage.dialogs.push(newDialog)
-        rerenderTree()
-    } else if (action.type === "UPDATE-MESSAGE-TEXT") {
-        state.profilePage.postTextNew = action.newText
-        rerenderTree()
-    } else if (action.type === "ADD-MESSAGE-TEXT") {
-        const newMessage: MessageType = {...state.dialogsPage.messages[0], message: action.message,}
-        if (state.profilePage.postTextNew.trim()) {
-            state.dialogsPage.messages.push(newMessage)
-            state.profilePage.postTextNew = ""
-            rerenderTree()
-        } else {
-            return
-        }
-    }
+
+    state.profilePage = profileReducer(state.profilePage, action)
+    state.dialogsPage = dialogReducer(state.dialogsPage, action)
+
+    // if (action.type === "ADD-POST") {
+    //     const newPost: PostType = {
+    //         id: 5,
+    //         post: action.text,
+    //         likesCount: 11
+    //     }
+    //     state.profilePage.postTextNew = ""
+    //     state.profilePage.posts.push(newPost)
+    //     rerenderTree()
+    // } else if (action.type === "UPDATE-POST-TEXT") {
+    //     state.profilePage.postTextNew = action.newText
+    //     rerenderTree()
+    // } else if (action.type === "ADD-NEW-DIALOG") {
+    //     const newDialog: DialogType = {
+    //         id: 11,
+    //         name: action.name,
+    //         message: action.newMessage,
+    //         avatar: action.avatar
+    //     }
+    //     state.dialogsPage.dialogs.push(newDialog)
+    //     rerenderTree()
+    // } else if (action.type === "UPDATE-MESSAGE-TEXT") {
+    //     state.profilePage.postTextNew = action.newText
+    //     rerenderTree()
+    // } else if (action.type === "ADD-MESSAGE-TEXT") {
+    //     const newMessage: MessageType = {...state.dialogsPage.messages[0], message: action.message,}
+    //     if (state.profilePage.postTextNew.trim()) {
+    //         state.dialogsPage.messages.push(newMessage)
+    //         state.profilePage.postTextNew = ""
+    //         rerenderTree()
+    //     } else {
+    //         return
+    //     }
+    // }
 }
 
 export const subscriber = (observer: () => void) => {

@@ -7,7 +7,6 @@ import {BrowserRouter} from "react-router-dom";
 import {dispatch, state, subscriber} from './Components/Redux/State';
 
 
-
 export const rerenderTree = () => {
 
         ReactDOM.render(
