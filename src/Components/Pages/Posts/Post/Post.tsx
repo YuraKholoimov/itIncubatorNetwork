@@ -1,10 +1,12 @@
 import {Card, Figure} from "react-bootstrap";
 import React from "react";
-import { PostType } from "../../../Redux/State";
 
-
+export type PostType = {
+    id: number
+    post?: string
+    likesCount?: number
+}
 export const Post: React.FC<PostType> = (props) => {
-
     return (
         <div className='d-flex flex-column m-1 '>
             <Card className="shadow rounded">

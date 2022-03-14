@@ -3,24 +3,21 @@ import {BodyNavbar} from "../Navbar/BodyNavbar/BodyNavbar";
 import {ProfileCard} from "./Profile/ProfileCard";
 import {CarouselComponent} from "../UI/CarouselComponent";
 
-import {ActionsTypes, AppStateType} from "../Redux/State";
-
 import {RoutesApp} from "../Routes/RoutesApp";
 
 import style from "./bodyApp.module.css";
 
-type BodyAppType = {
-    state: AppStateType
-    dispatch: (action: ActionsTypes) => void
-}
+// type BodyAppType = {
+//     state: any
+// }
 
-export const BodyApp: React.FC<BodyAppType> = (props) => {
+export const BodyApp = () => {
     return (
         <div className={style.bodyContent}>
             <CarouselComponent/>
             <BodyNavbar/>
             <ProfileCard/>
-            <RoutesApp state={props.state} dispatch={props.dispatch}/>
+            <RoutesApp  />
         </div>
     )
 }

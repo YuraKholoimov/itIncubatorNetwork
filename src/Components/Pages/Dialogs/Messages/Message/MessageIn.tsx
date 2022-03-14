@@ -2,6 +2,7 @@ import React from "react";
 import style from "../Message.module.css";
 
 export type MessageType = {
+    id?:number
     avatar: string
     name: string
     message: string

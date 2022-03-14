@@ -1,35 +1,21 @@
 import {Route, Routes} from "react-router-dom";
-import {PostsPage} from "../Pages/Posts/PostsPage";
-import {DialogsPage} from "../Pages/DialogsPage/DialogsPage";
-import {FriendsPage} from "../Pages/Friends/FriendsPage";
 import React from "react";
-import {ActionsTypes, AppStateType} from "../Redux/State";
-import {MessagesPage} from "../Pages/DialogsPage/Messages/MessagesPage";
+import {PostsPageContainer} from "../Pages/Posts/PostsPageContainer";
+import {DialogsPageContainer} from "../Pages/Dialogs/DialogsPageContainer";
+import {MessagesContainer} from "../Pages/Dialogs/Messages/MessagesContainer";
+import {FriendsPageContainer} from "../Pages/Friends/FriendsPageContainer";
 
-type RoutesAppType = {
-    state: AppStateType,
-    dispatch: (value: ActionsTypes) => void
-}
 
-export const RoutesApp: React.FC<RoutesAppType> = (props) => {
-
+export const RoutesApp = () => {
     return (
         <>
             <Routes>
-                <Route path={"/"} element={<PostsPage state={props.state} dispatch={props.dispatch}/>}/>
-                <Route path={"/dialogs"} element={<DialogsPage state={props.state} dispatch={props.dispatch}/>}/>
-                <Route path={"/friends"} element={<FriendsPage/>}/>
-                <Route path={"/posts"} element={<PostsPage state={props.state} dispatch={props.dispatch}/>}/>
-                {props.state.dialogsPage.messages.map((el, index) => {
-                    return <Route path={`/message/${el.id}`} element={
-                        <MessagesPage
-                            state={props.state}
-                            dispatch={props.dispatch}
-                            messages={props.state.dialogsPage.messages}
-                        />
-                    }/>
-                })}
-
+                <Route path={"*"} element={<><img src={"https://www.seekpng.com/png/detail/212-2123432_404-error-error-404-in-png.png"}/></>}/>
+                <Route path={"/"} element={<PostsPageContainer/>}/>
+                <Route path={"/posts"} element={<PostsPageContainer/>}/>
+                <Route path={"/friends"} element={<FriendsPageContainer/>}/>
+                <Route path={"/dialogs"} element={<DialogsPageContainer/>}/>
+                <Route path={`/dialogs/message/:id`} element={<MessagesContainer/>}/>
             </Routes>
         </>
     )

@@ -1,13 +1,19 @@
 import {Card, ListGroupItem} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
 import React from "react";
-import {DialogType} from "../../Redux/State";
+
+export type DialogType = {
+    id: number
+    name: string
+    message: string
+    avatar: string
+}
 
 export const Dialog: React.FC<DialogType> = (props) => (
-    <div className='d-flex justify-content-end col-md-12'>
+    <div className='d-flex justify-content-end'>
         <div className='col-md-8 mx-sm-4 my-sm-1'>
             <ListGroupItem action className="shadow">
-                <NavLink to={`/message/${props.id}`} className='text-decoration-none'>
+                <NavLink to={`message/${props.id}`} className='text-decoration-none'>
                     <div className='d-flex flex-row text-body'>
                         {/*--------------------- Dialog --------------------*/}
                         <Card.Img
