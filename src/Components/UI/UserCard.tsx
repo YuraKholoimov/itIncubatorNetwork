@@ -4,11 +4,14 @@ import { ButtonModal } from './ButtonModal';
 
 export type UserCardPropsType = {
     id: number
-    nickName: string
+    name: string
     city: string
-    avatar: string
-    isFollow: boolean
+    photos: string
+    followed: boolean
     follow: () => void
+    status: string
+    avatar:string
+
 }
 const UserCard: React.FC<UserCardPropsType> = (props) => {
     return (
@@ -21,11 +24,11 @@ const UserCard: React.FC<UserCardPropsType> = (props) => {
                         width={171}
                         height={180}
                         alt="171x180"
-                        src={props.avatar}
+                        src={ props.photos && props.avatar}
                     />
                     <div className='d-flex justify-content-center'>
                         {
-                            props.isFollow
+                            props.followed
                                 ? <Button variant="outline-danger" onClick={props.follow}>
                                     Unfollow</Button>
                                 : <Button variant="danger" onClick={props.follow}>
@@ -37,9 +40,9 @@ const UserCard: React.FC<UserCardPropsType> = (props) => {
                 </Figure>
                 <div style={{width: "33rem", border: "grey 1px solid", margin: "5px"}}>
                     <Card.Body>
-                        <div>NICKNAME: {props.nickName}</div>
-                        <div>LOCATION: {props.nickName}</div>
-                        <div>STATUS: {props.nickName}</div>
+                        <div>NICKNAME: {props.name}</div>
+                        <div>LOCATION: {"props.nickName"}</div>
+                        <div>STATUS: {props.status}</div>
                     </Card.Body>
                 </div>
             </Card>
