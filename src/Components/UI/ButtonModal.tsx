@@ -1,9 +1,15 @@
-import React from "react";
+import React, {ButtonHTMLAttributes, DetailedHTMLProps} from "react";
 import {Button, Modal} from "react-bootstrap";
+
+type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
 type MyVerticallyCenteredModalType = {
     show: boolean
     onHide: () => void
+}
+type ButtonModalPropsType = DefaultButtonPropsType & {
+    children?: string
+    variant: string
 }
 
 function MyVerticallyCenteredModal(props: MyVerticallyCenteredModalType) {
@@ -35,13 +41,15 @@ function MyVerticallyCenteredModal(props: MyVerticallyCenteredModalType) {
     );
 }
 
-export function ButtonModal() {
+export function ButtonModal(props: ButtonModalPropsType) {
     const [modalShow, setModalShow] = React.useState(false);
-
+const {children, variant} = props
     return (
         <>
-            <Button variant="outline-primary" onClick={() => setModalShow(true)}>
-                Write
+            <Button
+                variant={variant}
+                onClick={() => setModalShow(true)}
+            >{children}
             </Button>
 
             <MyVerticallyCenteredModal

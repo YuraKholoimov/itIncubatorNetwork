@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from 'react'
 import {Messages} from "./Messages";
 import {Route, Routes} from 'react-router-dom';
-import {AddNewMessageAC, InitialStateDialogType, updateNewMessageTextAC} from "../../../Redux/dialog-reducer";
+import {AddNewMessageAC, InitialStateDialogType, updateNewMessageTextAC} from "../../../Redux/Reducers/dialog-reducer";
 import {AppStateType} from "../../../Redux/redux-store";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";

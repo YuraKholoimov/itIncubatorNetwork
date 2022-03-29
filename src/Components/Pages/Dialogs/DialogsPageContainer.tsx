@@ -1,17 +1,18 @@
 import React from "react";
 import {ListGroup} from "react-bootstrap";
 import {Dialog, DialogType} from "./Dialog";
-import {connect} from "react-redux";
-import {InitialStateDialogType} from "../../Redux/dialog-reducer";
+import {InitialStateDialogType} from "../../Redux/Reducers/dialog-reducer";
 import {AppStateType} from "../../Redux/redux-store";
+import {useSelector} from "react-redux";
 
 
-const DialogsPage: React.FC<DialogsPageType> = (props) => {
+const DialogsPageContainer  = () => {
+    const state = useSelector<AppStateType, InitialStateDialogType>(state => state.dialogReducer)
     return (
         <>
             <ListGroup>
                 {
-                    props.state.dialogs.map((dialog: DialogType) => {
+                    state.dialogs.map((dialog: DialogType) => {
                         return <Dialog
                             key={dialog.id}
                             id={dialog.id}
@@ -26,15 +27,5 @@ const DialogsPage: React.FC<DialogsPageType> = (props) => {
     )
 }
 
-type MapStateToPropsType = {
-    state: InitialStateDialogType
-}
-type DialogsPageType = MapStateToPropsType
 
-const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
-    state: state.dialogReducer
-})
-
-const mapDispatchToProps = () => ({})
-
-export const DialogsPageContainer = connect(mapStateToProps,)(DialogsPage)
+export default DialogsPageContainer;

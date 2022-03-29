@@ -1,28 +1,44 @@
 import {Container, Nav} from "react-bootstrap";
-
+import {NavLink} from "react-router-dom";
 
 export const BodyNavbar = () => {
+    const activeLink = (params: { isActive: boolean; }) => ({color: params.isActive ? "red" : "black"});
+
     return (
         <>
             <Container>
                 <div className='d-flex justify-content-end px-5 '>
                     <Nav variant="tabs" className='col-md-8 d-flex justify-content-center text-danger'>
-                        <Nav.Item>
-                            <Nav.Link className="text-black fw-bold" href="/posts">Wall</Nav.Link>
+                        <Nav.Item className="p-3">
+                            <NavLink
+                                to="/posts"
+                                className="fw-bold text-decoration-none"
+                                style={activeLink}
+                            >Wall</NavLink>
                         </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link  className="text-black fw-bold"  href="/music">Music</Nav.Link>
+                        <Nav.Item className="p-3">
+                            <NavLink
+                                to="/music"
+                                className="fw-bold text-decoration-none"
+                                style={activeLink}
+                            >Music</NavLink>
                         </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link  className="text-black fw-bold"  href="/books">Video</Nav.Link>
+                        <Nav.Item className="p-3">
+                            <NavLink
+                                to={"/books"}
+                                style={activeLink}
+                                className="fw-bold text-decoration-none"
+                            >Video</NavLink>
                         </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link  className="text-black fw-bold"  href="/books">Photos</Nav.Link>
+                        <Nav.Item className="p-3">
+                            <NavLink
+                                to="/photos"
+                                className="fw-bold text-decoration-none"
+                                style={activeLink}
+                            >Photos</NavLink>
                         </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link  className="text-black fw-bold"  href="/books">Games</Nav.Link>
-                        </Nav.Item>
-                    </Nav></div>
+                    </Nav>
+                </div>
             </Container>
         </>
     )

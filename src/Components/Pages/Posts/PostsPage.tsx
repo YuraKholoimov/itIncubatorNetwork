@@ -1,21 +1,21 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import {Post, PostType} from "./Post/Post";
 import {TextareaApp} from "../../UI/TextareaApp";
-import {PostPageType} from "./PostsPageContainer";
+import {InitialStatePostReducerType} from "../../Redux/Reducers/post-reducer";
 
+export type PostsPagePropsType = {
+    state: InitialStatePostReducerType
+    onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
+    onClick: () => void
+    onKeypress: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void
+}
 
-export const PostsPage: React.FC<PostPageType> = (props) => {
-
-    const onClick = () => props.onClick(props.postTextNew)
-    const onKeypress = (e:React.KeyboardEvent<HTMLTextAreaElement>) => {
-        if (e.key == 'Enter' ) props.onClick(props.postTextNew)
-    }
-
+export const PostsPage: React.FC<PostsPagePropsType> = (props) => {
     return (
         <>
             <div className='col-md-8 d-flex flex-column align-self-end m-3'>
                 {
-                    props.posts.map((el: PostType) => {
+                    props.state.posts.map((el: PostType) => {
                         return <Post
                             key={el.id}
                             id={el.id}
@@ -25,10 +25,10 @@ export const PostsPage: React.FC<PostPageType> = (props) => {
                     })
                 }
                 <TextareaApp
-                    value={props.postTextNew}
-                    onChange={(e) => props.onChange(e)}
-                    onClick={onClick}
-                    onKeypress={onKeypress}
+                    value={props.state.postTextNew}
+                    onChange={props.onChange}
+                    onClick={props.onClick}
+                    onKeypress={props.onKeypress}
                 />
             </div>
         </>

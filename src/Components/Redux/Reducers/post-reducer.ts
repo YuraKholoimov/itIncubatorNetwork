@@ -3,11 +3,11 @@ export type PostType = {
     post?: string
     likesCount: number
 }
-export type InitialStateProfileReducerType = {
+export type InitialStatePostReducerType = {
     postTextNew: string,
     posts: PostType[]
 }
-const initialState: InitialStateProfileReducerType = {
+const initialState: InitialStatePostReducerType = {
     postTextNew: "",
     posts: [
         {id: 1, post: 'Hello everyone!!!', likesCount: 12},
@@ -18,7 +18,7 @@ const initialState: InitialStateProfileReducerType = {
 }
 
 //---------------- ACTION TYPES -------------------//
-export type ProfileActionsTypes =
+export type PostActionsTypes =
     ReturnType<typeof AddPostAC>
     | ReturnType<typeof updateNewPostTextAC>
 
@@ -26,10 +26,21 @@ export type ProfileActionsTypes =
 export const AddPostAC = (text: string) => ({type: "ADD-POST", text} as const)
 export const updateNewPostTextAC = (newText: string) => ({type: "UPDATE-POST-TEXT", newText} as const)
 
+
+//---------------- THUNK CREATOR -------------------//
+// const getUserProfileById = (id: number) => (dispatch: Dispatch) => {
+//     axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${id}`)
+//         .then(response => {
+//             dispatch(setUsersAC(response.data.items))
+//             // dispatch(setTotalUsersCountAC(response.data.usersCount))
+//         })
+// }
+
+
 //---------------- PROFILE REDUCER-------------------//
-const profileReducer = (
-    state: InitialStateProfileReducerType = initialState,
-    action: ProfileActionsTypes): InitialStateProfileReducerType => {
+const postReducer = (
+    state: InitialStatePostReducerType = initialState,
+    action: PostActionsTypes): InitialStatePostReducerType => {
     switch (action.type) {
         case "ADD-POST":
             const newPost: PostType = {
@@ -45,4 +56,4 @@ const profileReducer = (
     }
 };
 
-export default profileReducer;
+export default postReducer;

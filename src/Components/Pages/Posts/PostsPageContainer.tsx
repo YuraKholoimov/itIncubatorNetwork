@@ -1,39 +1,34 @@
 import React, {ChangeEvent} from "react";
-import {connect} from "react-redux";
-import { AddPostAC, updateNewPostTextAC } from "../../Redux/profile-reducer";
+import {useDispatch, useSelector} from "react-redux";
+
 import {AppStateType} from "../../Redux/redux-store";
-import {PostType} from "./Post/Post";
-import {Dispatch} from "redux";
-import { PostsPage } from "./PostsPage";
+import {PostsPage} from "./PostsPage";
+import {AddPostAC, InitialStatePostReducerType, updateNewPostTextAC} from "../../Redux/Reducers/post-reducer";
 
-type mapStateToPropsType = {
-    posts: PostType[]
-    postTextNew: string
-}
-type mapDispatchToPropsType = {
-    onClick: (postTextNew: string) => void
-    onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
-    onKeypress:(e:React.KeyboardEvent<HTMLTextAreaElement>, postTextNew: string)=> void
-}
-export type PostPageType = mapStateToPropsType & mapDispatchToPropsType
 
-const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
-    posts: state.profileReducer.posts,
-    postTextNew: state.profileReducer.postTextNew
-})
+export const PostsPageContainer = () => {
 
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
-    return {
-        onClick: (postTextNew) => {
-            dispatch(AddPostAC(postTextNew))
-        },
-        onChange: (e: ChangeEvent<HTMLTextAreaElement>) => {
-            dispatch( updateNewPostTextAC(e.currentTarget.value))
-        },
-        onKeypress: (e:React.KeyboardEvent<HTMLTextAreaElement>, postTextNew) => {
-            if (e.key == 'Enter') dispatch(AddPostAC(postTextNew))
-        }
+    // ---- HOOKs
+    const dispatch = useDispatch()
+    const state = useSelector<AppStateType, InitialStatePostReducerType>(state => state.postReducer)
+
+    // ---- Callbacks
+    const onClick = () => dispatch(AddPostAC(state.postTextNew))
+    const onKeypress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key == 'Enter') dispatch(AddPostAC(state.postTextNew))
     }
-}
+    const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        dispatch(updateNewPostTextAC(e.currentTarget.value))
+    }
 
-export const PostsPageContainer = connect(mapStateToProps, mapDispatchToProps)(PostsPage)
+    return (
+        <>
+            <PostsPage
+                state={state}
+                onClick={onClick}
+                onKeypress={onKeypress}
+                onChange={onChange}
+            />
+        </>
+    )
+}

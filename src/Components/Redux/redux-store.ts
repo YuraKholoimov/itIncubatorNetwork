@@ -1,14 +1,24 @@
-import {combineReducers, createStore} from "redux";
-import profileReducer from "./profile-reducer";
-import dialogReducer from "./dialog-reducer";
-import friendsPageReducer from "./friendsPage-reducer";
+import { combineReducers, createStore, applyMiddleware } from "redux";
+import postReducer from "./Reducers/post-reducer";
+import dialogReducer from "./Reducers/dialog-reducer";
+import friendsPageReducer from "./Reducers/friendsPage-reducer";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunk from "redux-thunk";
+import profileReducer from "./Reducers/profile-reducer";
+import authReducer from "./Reducers/auth-reducer";
+
+// ---- Types
+export type AppStateType = typeof state
 
 const rootReducers = combineReducers({
-    profileReducer,
+    postReducer,
     dialogReducer,
-    friendsPageReducer
+    friendsPageReducer,
+    profileReducer,
+    authReducer
 })
 
-export type AppStateType = ReturnType<typeof rootReducers>
+export const store = createStore(rootReducers, composeWithDevTools(applyMiddleware(thunk)))
 
-export const store = createStore(rootReducers);
+const state = store.getState()
+

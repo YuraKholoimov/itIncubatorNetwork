@@ -1,15 +1,30 @@
 import {Button, Nav} from "react-bootstrap";
 import React from "react";
+import {NavLink} from "react-router-dom";
+import {LoginModal} from "./LoginModal";
 
-export const BtnLoginRegistration = () => {
+type BtnLoginRegistrationPropsType = {
+    isLogined: number
+
+}
+export const BtnLoginRegistration = (props: BtnLoginRegistrationPropsType) => {
     return (
         <Nav>
-            <Nav.Link href="/login">
-                <Button variant="outline-success">Login</Button>
-            </Nav.Link>
-            <Nav.Link href="/registration">
-                <Button className="" variant="outline-success">Sign up</Button>
-            </Nav.Link>
+            {
+                props.isLogined == 0
+                    ? <NavLink to="/">
+                        <LoginModal isLogined={props.isLogined}>Logout</LoginModal>
+                    </NavLink>
+                    : <>
+                        <NavLink to="/login">
+                            <Button variant="outline-success">Login</Button>
+                        </NavLink>
+                        <NavLink to="/registration">
+                            <Button className="" variant="outline-success">Sign up</Button>
+                        </NavLink>
+                    </>
+            }
+
         </Nav>
     )
 }

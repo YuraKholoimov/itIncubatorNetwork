@@ -1,36 +1,70 @@
-import FriendsPage from "./FriendsPage";
-import {connect} from "react-redux";
-import {Dispatch} from "redux";
+import React, {useEffect} from 'react';
+import UserCard from "../../UI/UserCard";
+import PaginationItem from "../../UI/Pagination";
+import axios from 'axios';
 import {AppStateType} from "../../Redux/redux-store";
 import {
-    followAC,
-    InitialStateFriendReducerType,
-    setCurrentPageAC,
+    followAC, followTC,
+    getNewPagUsersTC,
+    InitialStateFriendReducerType, isFetchingToggleAC,
     setTotalUsersCountAC,
-    setUsersAC
-} from "../../Redux/friendsPage-reducer";
-//-------------------------- TYPES ---------------------------
-type mapStateToPropsType = {
-    state: InitialStateFriendReducerType
-}
-type mapDispatchToPropsType = ReturnType<typeof mapDispatchToProps>
-export type FriendsPagePropsType = mapDispatchToPropsType
-    & mapStateToPropsType
+    setUsersAC,
+    unFollowTC
+} from "../../Redux/Reducers/friendsPage-reducer";
+import {useDispatch, useSelector} from 'react-redux';
+import Loader from "../../UI/Loader";
 
-//-------------------------- STATE, DISPATCH ---------------------------
-const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
-    state: state.friendsPageReducer
-})
+const FriendsPageContainer = () => {
+    const state = useSelector<AppStateType, InitialStateFriendReducerType>(state => state.friendsPageReducer)
+    const dispatch = useDispatch()
 
+    useEffect(() => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${state.currentPage}&count=${state.usersOnPageCount}`)
+            .then(response => {
+                dispatch(setUsersAC(response.data.items))
+                dispatch(setTotalUsersCountAC(response.data.totalCount))
+            })
+    }, [])
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    follow: (isFollow: boolean, userId: number) => dispatch(followAC(isFollow, userId)),
-    setUsers: (users: any) => dispatch(setUsersAC(users)),
-    setCurrentPage: (numPage:number) => dispatch(setCurrentPageAC(numPage)),
-    setTotalUsersCount: (usersCount:number) => dispatch(setTotalUsersCountAC(usersCount))
-})
+    const getNewPagUsers = (numPage: number) => dispatch(getNewPagUsersTC(numPage, state.usersOnPageCount))
 
-export const FriendsPageContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(FriendsPage)
+    const pages = state.totalUsersCount / state.usersOnPageCount
+
+    const totalPagesCount = []
+    for (let i = 1; i < pages + 1; i++) {
+        totalPagesCount.push(i)
+    }
+
+    return (
+        <div style={{width: "70rem"}}>
+            <div className="d-flex justify-content-center m-2">
+                <PaginationItem
+                    totalPagesCount={totalPagesCount}
+                    currentPage={state.currentPage}
+                    setCurrentPage={getNewPagUsers}
+                />
+            </div>
+            {
+                state.users.map((u) => {
+                    const toFollow = (userId: number) => {
+                        if(u.followed) dispatch(unFollowTC(userId))
+                        else dispatch(followTC(userId))
+                            }
+                    return <UserCard
+                        key={u.id}
+                        id={u.id}
+                        name={u.name}
+                        status={u.status}
+                        city={u.city}
+                        photos={u.photos}
+                        avatar={u.photos && u.avatar}
+                        followed={u.followed}
+                        follow={() => toFollow(u.id)}
+                    />
+                })
+            }
+        </div>
+    );
+};
+
+export default FriendsPageContainer;
