@@ -7,11 +7,11 @@ type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonE
 type MyVerticallyCenteredModalType = {
     show: boolean
     onHide: () => void
-    isLogined: number
+    isLogined: boolean
 }
 type LoginModalPropsType = DefaultButtonPropsType & {
     children: string
-    isLogined: number
+    isLogined: boolean
 }
 
 function MyVerticallyCenteredModal(props: MyVerticallyCenteredModalType) {
@@ -31,7 +31,7 @@ function MyVerticallyCenteredModal(props: MyVerticallyCenteredModalType) {
             <Modal.Body>
                 {/*<h4>Message</h4>*/}
                 {
-                    isLogined === 0
+                    isLogined
                         ? <p>Do you want to logout? </p>
                         : <>
                             <MyForm

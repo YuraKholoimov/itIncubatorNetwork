@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import axios from "axios";
+import api from "../../api/api";
 
 export type InitialAuthStateType = typeof initialAuthState
 export type authDataType = typeof initialAuthState.data
@@ -17,23 +18,26 @@ const initialAuthState = {
 }
 
 //---------------- ACTION TYPES -------------------//
-export type AuthActionsTypes = ReturnType<typeof getAuthDataAC>
+export type AuthActionsTypes = ReturnType<typeof setAuthDataAC>
 
 //---------------- ACTION CREATORS -------------------//
-export const getAuthDataAC = (payload: InitialAuthStateType) => ({type: "GET-AUTH-DATA", payload} as const)
+export const setAuthDataAC = (payload: InitialAuthStateType) => ({type: "SET-AUTH-DATA", payload} as const)
 
 //---------------- THUNK CREATOR -------------------//
 export const getAuthDataTC = () => (dispatch: Dispatch) => {
-    axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true})
+    api().authMe()
         .then(response => {
-                dispatch(getAuthDataAC(response.data))
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthDataAC(response.data))
+            }
+
         })
 }
 
 //---------------- PROFILE REDUCER-------------------//
 const authReducer = (state: InitialAuthStateType = initialAuthState, action: AuthActionsTypes): InitialAuthStateType => {
     switch (action.type) {
-        case  "GET-AUTH-DATA":
+        case  "SET-AUTH-DATA":
             return {...state, ...action.payload, isAuth: true}
         default:
             return state

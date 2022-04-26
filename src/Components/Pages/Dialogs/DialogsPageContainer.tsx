@@ -4,10 +4,13 @@ import {Dialog, DialogType} from "./Dialog";
 import {InitialStateDialogType} from "../../../Redux/Reducers/dialog-reducer";
 import {AppStateType} from "../../../Redux/redux-store";
 import {useSelector} from "react-redux";
+import {InitialAuthStateType} from "../../../Redux/Reducers/auth-reducer";
 
 
 const DialogsPageContainer  = () => {
     const state = useSelector<AppStateType, InitialStateDialogType>(state => state.dialogReducer)
+    const isAuth = useSelector<AppStateType, boolean>(state => state.authReducer.isAuth)
+    alert(isAuth)
     return (
         <>
             <ListGroup>

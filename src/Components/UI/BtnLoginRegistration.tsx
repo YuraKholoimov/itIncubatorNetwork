@@ -4,16 +4,16 @@ import {NavLink} from "react-router-dom";
 import {LoginModal} from "./LoginModal";
 
 type BtnLoginRegistrationPropsType = {
-    isLogined: number
+    isAuth: boolean
 
 }
 export const BtnLoginRegistration = (props: BtnLoginRegistrationPropsType) => {
     return (
         <Nav>
             {
-                props.isLogined == 0
+                props.isAuth
                     ? <NavLink to="/">
-                        <LoginModal isLogined={props.isLogined}>Logout</LoginModal>
+                        <LoginModal isLogined={props.isAuth}>Logout</LoginModal>
                     </NavLink>
                     : <>
                         <NavLink to="/login">

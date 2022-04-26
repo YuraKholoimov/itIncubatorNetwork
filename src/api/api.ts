@@ -13,7 +13,7 @@ const instanceAxios = axios.create({
 
 const api = () => ({
     authMe: () => {
-        return instanceAxios.get(`${baseUrl}auth/me`, {withCredentials: true})
+        return instanceAxios.get(`${baseUrl}auth/me`)
     },
     getUserById: (userId: number) =>   instanceAxios.get(`/profile/${userId}`),
     getUser: (currentPage: number, usersOnPageCount: number) => {

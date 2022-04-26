@@ -4,17 +4,16 @@ import React from "react";
 import {BtnLoginRegistration} from "../UI/BtnLoginRegistration";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
-import {InitialAuthStateType} from "../../Redux/Reducers/auth-reducer";
 import {NavLink} from "react-router-dom";
 
 
 export const HeaderApp = () => {
     const logoImg = "https://media-exp1.licdn.com/dms/image/C4D0BAQHeTQsBATkdwg/company-logo_200_200/0/1575544858313?e=2159024400&v=beta&t=Fc-rMZrwOOp1mCjudpS82nEpkHGmAzT0oH5PJL6CuAU"
-    const authData = useSelector<AppStateType, InitialAuthStateType>(state => state.authReducer)
+    const isAuth = useSelector<AppStateType, boolean>(state => state.authReducer.isAuth)
 
-    if (authData.resultCode === 0) {
-
-    }
+    // if (authData.resultCode === 0) {
+    //
+    // }
 
     return (
         <Navbar bg="light" expand="lg" className="shadow">
@@ -53,7 +52,7 @@ export const HeaderApp = () => {
 
                     {/*-------- LOGIN  & REGISTRATION ------*/}
                     <BtnLoginRegistration
-                        isLogined={authData.resultCode}
+                        isAuth={isAuth}
                     />
 
                 </Navbar.Collapse>
