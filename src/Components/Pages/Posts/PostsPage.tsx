@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from "react";
 import {Post, PostType} from "./Post/Post";
 import {TextareaApp} from "../../UI/TextareaApp";
-import {InitialStatePostReducerType} from "../../Redux/Reducers/post-reducer";
+import {InitialStatePostReducerType} from "../../../Redux/Reducers/post-reducer";
 
 export type PostsPagePropsType = {
     state: InitialStatePostReducerType

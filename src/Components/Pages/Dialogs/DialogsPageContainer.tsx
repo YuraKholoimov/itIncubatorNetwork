@@ -1,8 +1,8 @@
 import React from "react";
 import {ListGroup} from "react-bootstrap";
 import {Dialog, DialogType} from "./Dialog";
-import {InitialStateDialogType} from "../../Redux/Reducers/dialog-reducer";
-import {AppStateType} from "../../Redux/redux-store";
+import {InitialStateDialogType} from "../../../Redux/Reducers/dialog-reducer";
+import {AppStateType} from "../../../Redux/redux-store";
 import {useSelector} from "react-redux";
 
 

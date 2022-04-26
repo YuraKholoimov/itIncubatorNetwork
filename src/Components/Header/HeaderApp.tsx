@@ -3,8 +3,8 @@ import {SearchForm} from "../UI/SearchForm";
 import React from "react";
 import {BtnLoginRegistration} from "../UI/BtnLoginRegistration";
 import {useSelector} from "react-redux";
-import {AppStateType} from "../Redux/redux-store";
-import {InitialAuthStateType} from "../Redux/Reducers/auth-reducer";
+import {AppStateType} from "../../Redux/redux-store";
+import {InitialAuthStateType} from "../../Redux/Reducers/auth-reducer";
 import {NavLink} from "react-router-dom";
 
 
@@ -24,10 +24,10 @@ export const HeaderApp = () => {
                         <b>IT-INCUBATOR</b>
                     </NavLink>
                     <img
-                    src={logoImg}
-                    alt="LOGO"
-                    style={{height: '30px', width: '30px'}}
-                />
+                        src={logoImg}
+                        alt="LOGO"
+                        style={{height: '30px', width: '30px'}}
+                    />
                     network
                 </Navbar.Brand>
 
@@ -39,7 +39,7 @@ export const HeaderApp = () => {
                         <NavLink to="/favorite" className='p-2'>FAVORITE</NavLink>
                         <NavLink to="/news" className='p-2'>It-NEWS</NavLink>
 
-                        <NavDropdown title="SERVISES" id="basic-nav-dropdown" >
+                        <NavDropdown title="SERVISES" id="basic-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>

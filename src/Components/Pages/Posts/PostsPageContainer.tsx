@@ -1,9 +1,9 @@
 import React, {ChangeEvent} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
-import {AppStateType} from "../../Redux/redux-store";
+import {AppStateType} from "../../../Redux/redux-store";
 import {PostsPage} from "./PostsPage";
-import {AddPostAC, InitialStatePostReducerType, updateNewPostTextAC} from "../../Redux/Reducers/post-reducer";
+import {AddPostAC, InitialStatePostReducerType, updateNewPostTextAC} from "../../../Redux/Reducers/post-reducer";
 
 
 export const PostsPageContainer = () => {

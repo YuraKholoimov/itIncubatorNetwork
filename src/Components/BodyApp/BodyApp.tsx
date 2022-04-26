@@ -9,8 +9,8 @@ import ProfileContainer from "../Pages/Profile/ProfileContainer";
 import {Route, Routes} from "react-router-dom";
 import Loader from "../UI/Loader";
 import {useSelector} from "react-redux";
-import {AppStateType} from "../Redux/redux-store";
-import {InitialStateFriendReducerType} from "../Redux/Reducers/friendsPage-reducer";
+import {AppStateType} from "../../Redux/redux-store";
+import {InitialStateFriendReducerType} from "../../Redux/Reducers/friendsPage-reducer";
 
 
 export const BodyApp = () => {

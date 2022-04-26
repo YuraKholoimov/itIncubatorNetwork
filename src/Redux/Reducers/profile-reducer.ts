@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import axios from "axios";
+import api from "../../api/api";
 
 export type InitialUserProfileStateType = typeof initialState
 export type userProfileType = typeof initialState.userProfile
@@ -34,7 +35,7 @@ export const getUserProfileAC = (userProfile: userProfileType) => ({type: "GET-U
 
 //---------------- THUNK CREATOR -------------------//
 export const getUserProfileByIdTC = (userId: number) => (dispatch: Dispatch) => {
-    axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+    api().getUserById(userId)
         .then(response => {
             dispatch(getUserProfileAC(response.data))
         })

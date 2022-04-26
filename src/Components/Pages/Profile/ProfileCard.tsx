@@ -3,8 +3,8 @@ import style from "../../BodyApp/bodyApp.module.css";
 import {ProfileNavbar} from "../../Navbar/ProfileNavbar/ProfileNavbar";
 import React from "react";
 import {NavLink} from "react-router-dom";
-import {userProfileType} from "../../Redux/Reducers/profile-reducer";
-import {authDataType} from "../../Redux/Reducers/auth-reducer";
+import {userProfileType} from "../../../Redux/Reducers/profile-reducer";
+import {authDataType} from "../../../Redux/Reducers/auth-reducer";
 import { ButtonModal } from "../../UI/ButtonModal";
 
 type ProfileCardPropsType = {

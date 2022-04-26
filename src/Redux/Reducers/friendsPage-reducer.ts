@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {log} from "util";
 import axios from "axios";
+import api from "../../api/api";
 
 export type FriendType = {
     id: number
@@ -17,6 +18,7 @@ export type InitialStateFriendReducerType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    disableButton: number[]
 }
 const ava = "https://store.playstation.com/store/api/chihiro/00_09_000/containe" +
     "r/RU/ru/99/EP2402-CUSA05624_00-AV00000000000229/0/image?_" +
@@ -34,7 +36,7 @@ const initialState: InitialStateFriendReducerType = {
     totalUsersCount: 20,
     currentPage: 1,
     isFetching: false,
-
+    disableButton: [],
 }
 
 //---------------- ACTION TYPES -------------------//
@@ -43,6 +45,7 @@ export type FriendsACType = ReturnType<typeof followAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setTotalUsersCountAC>
     | ReturnType<typeof isFetchingToggleAC>
+    | ReturnType<typeof disableButtonAC>
 
 
 //---------------- ACTION CREATORS -------------------//
@@ -51,6 +54,11 @@ export const setUsersAC = (users: any) => ({type: "SET-USERS", users, ava} as co
 export const setCurrentPageAC = (numPage: number) => ({type: "SET-CURRENT-PAGE", numPage} as const)
 export const setTotalUsersCountAC = (usersCount: number) => ({type: "SET-TOTAL-USERS-COUNT", usersCount} as const)
 export const isFetchingToggleAC = (isFetching: boolean) => ({type: "IS-FETCHING-TOGGLE", isFetching} as const)
+export const disableButtonAC = (isFetching: boolean, userId: number) => ({
+    type: "DISABLE-BUTTON",
+    isFetching,
+    userId
+} as const)
 
 //---------------- PROFILE REDUCER-------------------//
 const friendsPageReducer = (
@@ -84,6 +92,13 @@ const friendsPageReducer = (
                 ...state,
                 isFetching: action.isFetching
             }
+        case "DISABLE-BUTTON" :
+            return {
+                ...state,
+                disableButton: action.isFetching
+                    ? [...state.disableButton,action.userId]
+                    : state.disableButton.filter(id => id !== action.userId)
+            }
 
         default:
             return state
@@ -95,9 +110,7 @@ export const getNewPagUsersTC = (numPage: number, usersOnPage: number) => (dispa
     dispatch(isFetchingToggleAC(true))
     dispatch(setCurrentPageAC(numPage))
     setTimeout(() => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${numPage}&count=${usersOnPage}`, {
-            withCredentials: true
-        })
+        api().getUser(numPage, usersOnPage)
             .then(response => {
                 dispatch(setUsersAC(response.data.items))
                 dispatch(isFetchingToggleAC(false))
@@ -107,30 +120,29 @@ export const getNewPagUsersTC = (numPage: number, usersOnPage: number) => (dispa
 }
 
 export const followTC = (userId: number) => (dispatch: Dispatch) => {
-        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {}, {
-            withCredentials: true,
-            headers: {
-                "API-KEY": "74a2af3c-45fa-4c81-b701-0275dea0591d"
-            }})
+    dispatch(disableButtonAC(true, userId))
+    setTimeout(() => {
+        api().follow(userId)
             .then(response => {
                 if (response.data.resultCode === 0)
-                dispatch(followAC(true, userId))
+                    dispatch(disableButtonAC(false, userId))
+                    dispatch(followAC(true, userId))
                 // dispatch(setTotalUsersCountAC(response.data.usersCount))
             })
+    }, 2000)
 
 }
 export const unFollowTC = (userId: number) => (dispatch: Dispatch) => {
-    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {
-        withCredentials: true,
-        headers: {
-            "API-KEY": "74a2af3c-45fa-4c81-b701-0275dea0591d"
-        }
-    })
-        .then(response => {
-            if (response.data.resultCode === 0)
-            dispatch(followAC(false, userId))
-            // dispatch(setTotalUsersCountAC(response.data.usersCount))
-        })
+    dispatch(disableButtonAC(true, userId))
+    setTimeout(() => {
+        api().unFollow(userId)
+            .then(response => {
+                if (response.data.resultCode === 0)
+                    dispatch(disableButtonAC(false, userId))
+                    dispatch(followAC(false, userId))
+                // dispatch(setTotalUsersCountAC(response.data.usersCount))
+            })
+    }, 2000)
 
 }
 export default friendsPageReducer;

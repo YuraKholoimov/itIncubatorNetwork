@@ -1,32 +1,34 @@
 import React, {useEffect} from 'react';
 import UserCard from "../../UI/UserCard";
 import PaginationItem from "../../UI/Pagination";
-import axios from 'axios';
-import {AppStateType} from "../../Redux/redux-store";
+import {AppStateType} from "../../../Redux/redux-store";
 import {
-    followAC, followTC,
+    disableButtonAC,
+    followTC,
     getNewPagUsersTC,
-    InitialStateFriendReducerType, isFetchingToggleAC,
+    InitialStateFriendReducerType,
     setTotalUsersCountAC,
     setUsersAC,
     unFollowTC
-} from "../../Redux/Reducers/friendsPage-reducer";
+} from "../../../Redux/Reducers/friendsPage-reducer";
 import {useDispatch, useSelector} from 'react-redux';
-import Loader from "../../UI/Loader";
+import api from '../../../api/api';
 
 const FriendsPageContainer = () => {
     const state = useSelector<AppStateType, InitialStateFriendReducerType>(state => state.friendsPageReducer)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${state.currentPage}&count=${state.usersOnPageCount}`)
-            .then(response => {
+       api().getUser(state.currentPage, state.usersOnPageCount)
+           .then(response => {
                 dispatch(setUsersAC(response.data.items))
                 dispatch(setTotalUsersCountAC(response.data.totalCount))
             })
     }, [])
 
-    const getNewPagUsers = (numPage: number) => dispatch(getNewPagUsersTC(numPage, state.usersOnPageCount))
+    const getNewPagUsers = (numPage: number) => {
+        dispatch(getNewPagUsersTC(numPage, state.usersOnPageCount))
+    }
 
     const pages = state.totalUsersCount / state.usersOnPageCount
 
@@ -47,9 +49,12 @@ const FriendsPageContainer = () => {
             {
                 state.users.map((u) => {
                     const toFollow = (userId: number) => {
-                        if(u.followed) dispatch(unFollowTC(userId))
-                        else dispatch(followTC(userId))
-                            }
+                        if(u.followed) {
+                            dispatch(unFollowTC(userId))
+                        } else {
+                            dispatch(followTC(userId))
+                        }
+                    }
                     return <UserCard
                         key={u.id}
                         id={u.id}
@@ -60,6 +65,7 @@ const FriendsPageContainer = () => {
                         avatar={u.photos && u.avatar}
                         followed={u.followed}
                         follow={() => toFollow(u.id)}
+                        isDisabled={state.disableButton}
                     />
                 })
             }

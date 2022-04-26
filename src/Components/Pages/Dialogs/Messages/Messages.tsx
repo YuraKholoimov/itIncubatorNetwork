@@ -4,7 +4,7 @@ import {TextareaApp} from "../../../UI/TextareaApp";
 import {Container} from "react-bootstrap";
 import style from "./Message.module.css";
 import {MessageOut} from './Message/MessageOut';
-import {updateNewMessageTextAC, AddNewMessageAC} from "../../../Redux/Reducers/dialog-reducer";
+import {updateNewMessageTextAC, AddNewMessageAC} from "../../../../Redux/Reducers/dialog-reducer";
 
 export type MessagesPropsType = {
     newDialogMessage: string

@@ -1,7 +1,8 @@
 import React from 'react';
 import {Button, Card, Figure} from 'react-bootstrap';
-import { ButtonModal } from './ButtonModal';
+import {ButtonModal} from './ButtonModal';
 import {NavLink} from "react-router-dom";
+import {debug} from "util";
 
 export type UserCardPropsType = {
     id: number
@@ -11,32 +12,30 @@ export type UserCardPropsType = {
     followed: boolean
     follow: () => void
     status: string
-    avatar:string
-
+    avatar: string
+    isDisabled: number[]
 }
 
 const UserCard: React.FC<UserCardPropsType> = (props) => {
-
     return (
-
         <div className=" d-flex   justify-content-end p-2 ">
             <Card className="flex-row col-lg-8 p-2  justify-content-center align-content-center">
                 <Figure className='d-flex flex-column'>
                     <NavLink to={`/profile/${props.id}`}>
                         <Figure.Image
-                        style={{borderRadius: "15px"}}
-                        width={171}
-                        height={180}
-                        alt="171x180"
-                        src={props.photos && props.avatar}
-                    />
+                            style={{borderRadius: "15px"}}
+                            width={171}
+                            height={180}
+                            alt="171x180"
+                            src={props.photos && props.avatar}
+                        />
                     </NavLink>
                     <div className='d-flex justify-content-center'>
                         {
                             props.followed
-                                ? <Button variant="outline-danger" onClick={props.follow}>
+                                ? <Button variant="outline-danger" onClick={props.follow} disabled={props.isDisabled.some(id => id == props.id)}>
                                     Unfollow</Button>
-                                : <Button variant="danger" onClick={props.follow}>
+                                : <Button variant="danger" onClick={props.follow} disabled={props.isDisabled.some(id => id == props.id)}>
                                     Follow</Button>
                         }
                         <ButtonModal variant="outline-danger">Write</ButtonModal>
