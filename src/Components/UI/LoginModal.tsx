@@ -14,7 +14,7 @@ type LoginModalPropsType = DefaultButtonPropsType & {
     isLogined: boolean
 }
 
-function MyVerticallyCenteredModal(props: MyVerticallyCenteredModalType) {
+export function MyVerticallyCenteredModal(props: MyVerticallyCenteredModalType) {
     const {onHide, isLogined, ...restProps} = props
     return (
         <Modal
